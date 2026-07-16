@@ -7,6 +7,7 @@ namespace NetSpeedWidget.Helpers;
 public class AppSettings
 {
     public string TextColor { get; set; } = "White";
+    public double FontSize { get; set; } = 13;
 
     public double WindowLeft { get; set; } = -1;
     public double WindowTop { get; set; } = -1;

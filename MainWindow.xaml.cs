@@ -30,7 +30,7 @@ public partial class MainWindow : Window
         _timer.Start();
     }
 
-    private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+private void MainWindow_Loaded(object sender, RoutedEventArgs e)
     {
         Dispatcher.BeginInvoke(new Action(() =>
         {
@@ -47,6 +47,7 @@ public partial class MainWindow : Window
         }));
 
         ApplyTextColor(_settings.TextColor);
+        ApplyFontSize(_settings.FontSize);
         LockPositionMenu.IsChecked = _settings.LockPosition;
         StartupMenu.IsChecked = StartupManager.IsEnabled();
     }
@@ -103,7 +104,7 @@ public partial class MainWindow : Window
         StartupMenu.IsChecked = StartupManager.IsEnabled();
     }
 
-    private void ApplyTextColor(string colorName)
+private void ApplyTextColor(string colorName)
     {
         WhiteMenu.IsChecked = false;
         GreenMenu.IsChecked = false;
@@ -143,9 +144,28 @@ public partial class MainWindow : Window
         _settings.Save();
     }
 
+public void ApplyFontSize(double fontSize)
+    {
+        DownloadText.FontSize = fontSize;
+        UploadText.FontSize = fontSize;
+        
+        _settings.FontSize = fontSize;
+        _settings.Save();
+    }
+
     private void White_Click(object sender, RoutedEventArgs e) => ApplyTextColor("White");
     private void Green_Click(object sender, RoutedEventArgs e) => ApplyTextColor("Green");
     private void Yellow_Click(object sender, RoutedEventArgs e) => ApplyTextColor("Yellow");
     private void Cyan_Click(object sender, RoutedEventArgs e) => ApplyTextColor("Cyan");
     private void Red_Click(object sender, RoutedEventArgs e) => ApplyTextColor("Red");
+
+    private void FontSize_Click(object sender, RoutedEventArgs e)
+    {
+        var dialog = new CustomFontSizeDialog();
+        
+        if (dialog.ShowDialog() == true)
+        {
+            ApplyFontSize(dialog.SelectedFontSize);
+        }
+    }
 }

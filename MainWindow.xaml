@@ -55,6 +55,8 @@
                       IsCheckable="True"
                       Click="Startup_Click"/>
 
+            <MenuItem Header="Font Size" Click="FontSize_Click"/>
+
             <Separator/>
 
             <MenuItem Header="Exit"
