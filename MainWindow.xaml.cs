@@ -159,9 +159,17 @@ public void ApplyFontSize(double fontSize)
     private void Cyan_Click(object sender, RoutedEventArgs e) => ApplyTextColor("Cyan");
     private void Red_Click(object sender, RoutedEventArgs e) => ApplyTextColor("Red");
 
-    private void FontSize_Click(object sender, RoutedEventArgs e)
+private void FontSize_Click(object sender, RoutedEventArgs e)
     {
         var dialog = new CustomFontSizeDialog();
+        
+        // Position the dialog near the main window
+        var mainWindowPosition = PointToScreen(new Point(0, 0));
+        var mainWindowSize = RenderSize;
+        
+        // Position the dialog near the center of the main window
+        dialog.Left = mainWindowPosition.X + (mainWindowSize.Width / 2) - (dialog.Width / 2);
+        dialog.Top = mainWindowPosition.Y + (mainWindowSize.Height / 2) - (dialog.Height / 2);
         
         if (dialog.ShowDialog() == true)
         {
