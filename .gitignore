@@ -1,1 +1,3 @@
-.aider*
+# Ignore the obj and bin directories
+obj/
+bin/
