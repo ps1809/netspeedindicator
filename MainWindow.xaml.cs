@@ -8,7 +8,8 @@ using System.Windows.Threading;
 using NetSpeedWidget.Helpers;
 using NetSpeedWidget.Services;
 
-namespace NetSpeedWidget;
+namespace NetSpeedWidget
+{
 
 public partial class MainWindow : Window
 {
@@ -167,9 +168,17 @@ private void FontSize_Click(object sender, RoutedEventArgs e)
         var mainWindowPosition = PointToScreen(new Point(0, 0));
         var mainWindowSize = RenderSize;
         
-        // Position the dialog near the center of the main window
-        dialog.Left = mainWindowPosition.X + (mainWindowSize.Width / 2) - (dialog.Width / 2);
-        dialog.Top = mainWindowPosition.Y + (mainWindowSize.Height / 2) - (dialog.Height / 2);
+        // Calculate position to center the dialog near the main window
+        double dialogLeft = mainWindowPosition.X + (mainWindowSize.Width / 2) - (dialog.Width / 2);
+        double dialogTop = mainWindowPosition.Y + (mainWindowSize.Height / 2) - (dialog.Height / 2);
+
+        // Ensure dialog stays within screen bounds
+        var screenBounds = SystemParameters.WorkArea;
+        dialogLeft = Math.Max(screenBounds.Left, Math.Min(dialogLeft, screenBounds.Right - dialog.Width));
+        dialogTop = Math.Max(screenBounds.Top, Math.Min(dialogTop, screenBounds.Bottom - dialog.Height));
+
+        dialog.Left = dialogLeft;
+        dialog.Top = dialogTop;
         
         if (dialog.ShowDialog() == true)
         {
